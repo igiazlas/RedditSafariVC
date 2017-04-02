@@ -15,5 +15,5 @@ While there's nothing wrong with the WebKit browser that the app uses I prefer t
 If you want to package and install with one move
 0. Make sure you have SSH installed on the device
 1. type `export THEOS_DEVICE_IP=your_iphones_ip_address`
-2. type `export THEOS_DEVICE_PORT=your_iphones_ssh_port` if nessesary (if the ssh client on our iPhone does not use the standard port 22)
+2. type `export THEOS_DEVICE_PORT=your_iphones_ssh_port` if necessary (if the ssh client on our iPhone does not use the standard port 22)
 3. type `make package install`
