@@ -44,7 +44,12 @@
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
 
-    if ([arg2.absoluteString containsString:@"np.reddit.com"]) {
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
         %orig;
 
         return;
@@ -58,9 +63,14 @@
 %hook CommentsViewController
 
 - (void)feedPostWebLinkViewDidTapLink:(FeedPostWebLinkView *)arg1 {
-    NSURL *url = arg1.post.linkURL;
 
-    if ([url.absoluteString containsString:@"np.reddit.com"]) {
+    NSURL *url = arg1.post.linkURL;
+    NSString *usrStr = [url.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
         %orig;
 
         return;
@@ -71,7 +81,12 @@
 
 - (void)commentTextView:(CommentTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
 
-    if ([arg2.absoluteString containsString:@"np.reddit.com"]) {
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
         %orig;
 
         return;
