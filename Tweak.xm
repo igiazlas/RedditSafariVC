@@ -58,8 +58,6 @@
 %hook CommentsViewController
 
 - (void)feedPostWebLinkViewDidTapLink:(FeedPostWebLinkView *)arg1 {
-    %log;
-
     NSURL *url = arg1.post.linkURL;
 
     if ([url.absoluteString containsString:@"np.reddit.com"]) {
