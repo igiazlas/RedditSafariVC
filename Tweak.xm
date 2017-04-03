@@ -63,6 +63,26 @@
 
 %end
 
+%hook SubredditFeedViewController
+
+- (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
+
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
+        %orig;
+
+        return;
+    }
+
+    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+}
+
+%end
+
 %hook CommentsViewController
 
 - (void)feedPostWebLinkViewDidTapLink:(FeedPostWebLinkView *)arg1 {
@@ -97,6 +117,21 @@
     [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
 }
 
+- (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
+        %orig;
+
+        return;
+    }
+
+    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+}
+
 - (void)commentTextView:(CommentTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
 
     NSString *usrStr = [arg2.absoluteString lowercaseString];
@@ -112,6 +147,8 @@
 
     [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
 }
+
+
 
 %end
 
