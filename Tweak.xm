@@ -22,6 +22,9 @@
 @interface FeedPostTextView
 @end
 
+@interface FeedPostSelfTextView
+@end
+
 @interface CommentTextView
 @end
 
@@ -77,6 +80,21 @@
     }
 
     [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:url];
+}
+
+- (void)feedPostSelfTextView:(FeedPostSelfTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
+        %orig;
+
+        return;
+    }
+
+    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
 }
 
 - (void)commentTextView:(CommentTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
