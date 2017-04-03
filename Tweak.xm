@@ -28,6 +28,9 @@
 @interface CommentTextView
 @end
 
+@interface AttributedLabel
+@end
+
 %hook UIViewController
 
 %new
@@ -148,7 +151,24 @@
     [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
 }
 
+%end
 
+%hook MessageRepliesViewController
+
+- (void)attributedLabel:(AttributedLabel *)arg1 didSelectLinkWithURL:(NSURL *)arg2 {
+    NSString *usrStr = [arg2.absoluteString lowercaseString];
+
+    if ([usrStr containsString:@"np.reddit.com"] ||
+        [usrStr hasPrefix:@"/r/"] ||
+        [usrStr hasPrefix:@"r/"]
+    ) {
+        %orig;
+
+        return;
+    }
+
+    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+}
 
 %end
 
