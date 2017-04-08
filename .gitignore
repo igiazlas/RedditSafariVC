@@ -2,3 +2,4 @@ packages/
 obj/
 .theos/
 .DS_Store
+*.sublime-*
