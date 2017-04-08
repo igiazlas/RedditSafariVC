@@ -4,7 +4,7 @@
 This is a tweak for the [official Reddit iOS app](https://itunes.apple.com/us/app/reddit-the-official-app/id1064216828?mt=8). It replaces the custom WebView broswer that they use with the native [SFSafariViewController](https://developer.apple.com/reference/safariservices/sfsafariviewcontroller)
 
 ## Motivation
-While there's nothing wrong with the WebKit browser that the app uses I prefer the native browser. SFSafariViewControllers are as close as it gets to the native Safari.app. They use all the extensions that you've installed (e.g. AdBlockers) and they also include the Reader View.
+While there's nothing wrong with the WebView browser that the app uses I prefer the native browser. SFSafariViewControllers are as close as it gets to the native Safari.app. They use all the extensions that you've installed (e.g. AdBlockers) and they also include the Reader View. Also open in links work better.
 
 ## Build instructions
 1. Install [Theos](https://github.com/theos/theos/wiki/Installation)
