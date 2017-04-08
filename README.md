@@ -6,6 +6,9 @@ This is a tweak for the [official Reddit iOS app](https://itunes.apple.com/us/ap
 ## Motivation
 While there's nothing wrong with the WebView browser that the app uses I prefer the native browser. SFSafariViewControllers are as close as it gets to the native Safari.app. They use all the extensions that you've installed (e.g. AdBlockers) and they also include the Reader View. Also open in links work better.
 
+## Instructions
+You can choose whether the SafariViewController will automatically enter Reader mode on websites that it is available. Go to the Reddit app settings and enable or disable the Reader Mode switch in View Options.
+
 ## Build instructions
 1. Install [Theos](https://github.com/theos/theos/wiki/Installation)
 2. Clone the repo to a directory of your choosing
