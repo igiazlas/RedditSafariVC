@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
-@import SafariServices;
+
+#import "RDLinkHandler.h"
 
 @interface Post
 {
@@ -19,6 +20,15 @@
 
 @end
 
+@interface FeedViewController : UIViewController
+@end
+
+@interface CommentsViewController : UIViewController
+@end
+
+@interface MessageRepliesViewController : UIViewController
+@end
+
 @interface FeedPostTextView
 @end
 
@@ -31,37 +41,14 @@
 @interface AttributedLabel
 @end
 
-%hook UIViewController
-
-%new
-- (void)presentSafariViewControllerWithURL:(NSURL *)url {
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
-
-    safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    safariVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    safariVC.modalPresentationCapturesStatusBarAppearance = YES;
-
-    [self presentViewController:safariVC animated:YES completion:nil];
-}
-
-%end
-
 %hook FeedViewController
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
+    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
-
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+    [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 %end
@@ -69,66 +56,37 @@
 %hook CommentsViewController
 
 - (void)feedPostWebLinkViewDidTapLink:(FeedPostWebLinkView *)arg1 {
-
     NSURL *url = arg1.post.linkURL;
-    NSString *usrStr = [url.absoluteString lowercaseString];
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-        return;
-    }
+    if ([linkHandler shouldIgnoreURL:url]) { %orig; return; }
 
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:url];
+    [linkHandler presentSafariFrom:self withURL:url];
 }
 
 - (void)feedPostSelfTextView:(FeedPostSelfTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
+    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+    [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
+    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+    [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 - (void)commentTextView:(CommentTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
+    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
-
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+    [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 %end
@@ -136,18 +94,11 @@
 %hook MessageRepliesViewController
 
 - (void)attributedLabel:(AttributedLabel *)arg1 didSelectLinkWithURL:(NSURL *)arg2 {
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
+    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
+    [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 %end
