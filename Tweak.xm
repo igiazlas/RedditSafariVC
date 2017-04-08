@@ -3,18 +3,12 @@
 #import "RDLinkHandler.h"
 
 @interface Post
-{
-    NSURL *_linkURL;
-}
 
 @property(copy, nonatomic) NSURL *linkURL;
 
 @end
 
 @interface FeedPostWebLinkView
-{
-    Post *_post;
-}
 
 @property(retain, nonatomic) Post *post;
 
