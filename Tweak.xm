@@ -46,27 +46,7 @@
 
 %end
 
-%hook MainFeedViewController
-
-- (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-
-    NSString *usrStr = [arg2.absoluteString lowercaseString];
-
-    if ([usrStr containsString:@"np.reddit.com"] ||
-        [usrStr hasPrefix:@"/r/"] ||
-        [usrStr hasPrefix:@"r/"]
-    ) {
-        %orig;
-
-        return;
-    }
-
-    [self performSelector:@selector(presentSafariViewControllerWithURL:) withObject:arg2];
-}
-
-%end
-
-%hook SubredditFeedViewController
+%hook FeedViewController
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
 
