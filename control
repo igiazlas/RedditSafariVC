@@ -1,9 +1,9 @@
 Package: com.igiazlas.redditsafarivc
 Name: RedditSafariVC
 Depends: mobilesubstrate
-Version: 0.0.5
+Version: 0.0.6
 Architecture: iphoneos-arm
-Description: Replaces WebKit with SFSafariViewController in Reddit's official app.
+Description: Replaces WebView with SFSafariViewController in Reddit's official app.
 Maintainer: John Giazlas
 Author: John Giazlas
 Section: Tweaks

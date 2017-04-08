@@ -22,7 +22,12 @@
     safariVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     safariVC.modalPresentationCapturesStatusBarAppearance = YES;
 
-    [sender presentViewController:safariVC animated:YES completion:nil];
+    if (sender.navigationController != nil) {
+        [sender.navigationController presentViewController:safariVC animated:YES completion:nil];
+    } else {
+        [sender presentViewController:safariVC animated:YES completion:nil];
+    }
+
 }
 
 @end
