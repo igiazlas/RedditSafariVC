@@ -26,12 +26,17 @@
     NSString *urlSchemeStr = [url.scheme lowercaseString];
     NSString *urlStr = [url.absoluteString lowercaseString];
 
-    return !([urlSchemeStr isEqualToString:@"http"] || [urlSchemeStr isEqualToString:@"https"]) ||
-        [urlStr containsString:@"np.reddit.com"];
+    return !([urlSchemeStr isEqualToString:@"http"] || [urlSchemeStr isEqualToString:@"https"]) || [urlStr containsString:@"np.reddit.com"];
+}
+
+- (BOOL)readerModeOn {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
+    return [userDefaults boolForKey:@"safari_reader_mode"];
 }
 
 - (void)presentSafariFrom:(UIViewController *)sender withURL:(NSURL *)url {
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:[self readerModeOn]];
 
     safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     safariVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
