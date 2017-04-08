@@ -23,13 +23,11 @@
 @implementation RDLinkHandler
 
 - (BOOL)shouldIgnoreURL:(NSURL *)url {
+    NSString *urlSchemeStr = [url.scheme lowercaseString];
     NSString *urlStr = [url.absoluteString lowercaseString];
 
-    return [urlStr containsString:@"np.reddit.com"] ||
-        [urlStr hasPrefix:@"/r/"] ||
-        [urlStr hasPrefix:@"r/"] ||
-        [urlStr hasPrefix:@"/u/"] ||
-        [urlStr hasPrefix:@"u/"];
+    return !([urlSchemeStr isEqualToString:@"http"] || [urlSchemeStr isEqualToString:@"https"]) ||
+        [urlStr containsString:@"np.reddit.com"];
 }
 
 - (void)presentSafariFrom:(UIViewController *)sender withURL:(NSURL *)url {
