@@ -34,8 +34,6 @@
 
 @interface AccountSettingsViewController
 
-- (id)dequeueSettingsCellForTableView:(id)arg1 indexPath:(id)arg2 leadingImage:(id)arg3 text:(id)arg4;
-
 - (UITableViewCell *)setupReaderModeCellForTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath;
 - (void)didToggleSafariReaderMode:(UISwitch *)sender;
 
