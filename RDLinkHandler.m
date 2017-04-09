@@ -1,8 +1,6 @@
 #import <objc/runtime.h>
 
-#import <UIKit/UIKit.h>
-@import SafariServices;
-
+#import "RDSafariViewController.h"
 #import "RDLinkHandler.h"
 
 @interface Theme
@@ -36,7 +34,7 @@
 }
 
 - (void)presentSafariFrom:(UIViewController *)sender withURL:(NSURL *)url {
-    SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:[self readerModeOn]];
+    RDSafariViewController *safariVC = [[RDSafariViewController alloc] initWithURL:url entersReaderIfAvailable:[self readerModeOn]];
 
     safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     safariVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -47,11 +45,7 @@
     safariVC.preferredBarTintColor = themeGuidance.currentTheme.navBarColor;
     safariVC.preferredControlTintColor = themeGuidance.currentTheme.buttonColor;
 
-    if (sender.navigationController != nil) {
-        [sender.navigationController presentViewController:safariVC animated:YES completion:nil];
-    } else {
-        [sender presentViewController:safariVC animated:YES completion:nil];
-    }
+    [sender presentViewController:safariVC animated:YES completion:nil];
 
 }
 
