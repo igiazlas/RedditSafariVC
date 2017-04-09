@@ -38,9 +38,9 @@
 %hook FeedViewController
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:arg2];
 }
@@ -52,33 +52,33 @@
 - (void)feedPostWebLinkViewDidTapLink:(FeedPostWebLinkView *)arg1 {
     NSURL *url = arg1.post.linkURL;
 
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:url]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:url]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:url];
 }
 
 - (void)feedPostSelfTextView:(FeedPostSelfTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 - (void)feedPostTextView:(FeedPostTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:arg2];
 }
 
 - (void)commentTextView:(CommentTextView *)arg1 didTapLinkURL:(NSURL *)arg2 {
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:arg2];
 }
@@ -88,9 +88,9 @@
 %hook MessageRepliesViewController
 
 - (void)attributedLabel:(AttributedLabel *)arg1 didSelectLinkWithURL:(NSURL *)arg2 {
-    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
+    if ([RDLinkHandler shouldIgnoreURL:arg2]) { %orig; return; }
 
-    if ([linkHandler shouldIgnoreURL:arg2]) { %orig; return; }
+    RDLinkHandler *linkHandler = [[RDLinkHandler alloc] init];
 
     [linkHandler presentSafariFrom:self withURL:arg2];
 }

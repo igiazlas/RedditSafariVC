@@ -20,7 +20,7 @@
 
 @implementation RDLinkHandler
 
-- (BOOL)shouldIgnoreURL:(NSURL *)url {
++ (BOOL)shouldIgnoreURL:(NSURL *)url {
     NSString *urlSchemeStr = [url.scheme lowercaseString];
     NSString *urlStr = [url.absoluteString lowercaseString];
 

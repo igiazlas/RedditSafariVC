@@ -2,7 +2,8 @@
 
 @interface RDLinkHandler : NSObject
 
-- (BOOL)shouldIgnoreURL:(NSURL *)url;
++ (BOOL)shouldIgnoreURL:(NSURL *)url;
+
 - (void)presentSafariFrom:(UIViewController *)sender withURL:(NSURL *)url;
 
 @end
