@@ -36,17 +36,12 @@
 - (void)presentSafariFrom:(UIViewController *)sender withURL:(NSURL *)url {
     RDSafariViewController *safariVC = [[RDSafariViewController alloc] initWithURL:url entersReaderIfAvailable:[self readerModeOn]];
 
-    safariVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    safariVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    safariVC.modalPresentationCapturesStatusBarAppearance = YES;
-
     ThemeGuidance *themeGuidance = [objc_getClass("ThemeGuidance") currentGuidance];
 
     safariVC.preferredBarTintColor = themeGuidance.currentTheme.navBarColor;
     safariVC.preferredControlTintColor = themeGuidance.currentTheme.buttonColor;
 
     [sender presentViewController:safariVC animated:YES completion:nil];
-
 }
 
 @end
