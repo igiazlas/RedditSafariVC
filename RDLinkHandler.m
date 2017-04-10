@@ -18,13 +18,29 @@
 
 @end
 
+@interface DeeplinkFactory : NSObject
+
++ (id)viewControllerForDeeplinkURL:(id)arg1;
++ (_Bool)isExternalURL:(id)arg1;
+
+@end
+
 @implementation RDLinkHandler
 
 + (BOOL)shouldIgnoreURL:(NSURL *)url {
-    NSString *urlSchemeStr = [url.scheme lowercaseString];
-    NSString *urlStr = [url.absoluteString lowercaseString];
+    BOOL isExternalURL = [objc_getClass("DeeplinkFactory") isExternalURL:url];
 
-    return !([urlSchemeStr isEqualToString:@"http"] || [urlSchemeStr isEqualToString:@"https"]) || [urlStr containsString:@"np.reddit.com"];
+    if (isExternalURL) {
+        return NO;
+    }
+
+    NSString *suggestedVCName = NSStringFromClass([[objc_getClass("DeeplinkFactory") viewControllerForDeeplinkURL:url] class]);
+
+    if ([suggestedVCName isEqualToString:@"WebViewController"]) {
+        return NO;
+    }
+
+    return YES;
 }
 
 - (BOOL)readerModeOn {
