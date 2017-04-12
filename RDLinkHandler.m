@@ -28,6 +28,12 @@
 @implementation RDLinkHandler
 
 + (BOOL)shouldIgnoreURL:(NSURL *)url {
+    NSString *urlScheme = url.scheme.lowercaseString;
+
+    if (![urlScheme isEqualToString:@"http"] && ![urlScheme isEqualToString:@"https"] ) {
+        return YES;
+    }
+
     BOOL isExternalURL = [objc_getClass("DeeplinkFactory") isExternalURL:url];
 
     if (isExternalURL) {
